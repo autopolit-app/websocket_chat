@@ -1,13 +1,13 @@
 # Websocket Chat
 nodejs express socketiojs cryptojs jquery bootstrap  
 
-nodejs
-  "dependencies": {
-    "bufferutil": "^4.0.1",
-    "express": "^4.17.1",
-    "forever": "^3.0.2",
-    "socket.io": "^2.3.0",
-    "utf-8-validate": "^5.0.2"
+nodejs  
+  "dependencies": {  
+    "bufferutil": "^4.0.1",  
+    "express": "^4.17.1",  
+    "forever": "^3.0.2",  
+    "socket.io": "^2.3.0",  
+    "utf-8-validate": "^5.0.2"  
   }
   
 
