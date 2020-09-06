@@ -17,18 +17,18 @@ app.get('/', function (req,res) {
 app.use("/css", express.static(__dirname + '/frontend/css'));
 app.use("/js", express.static(__dirname + '/frontend/js'));
 
-io.sockets.on('connection', function (socket) {
-    //connections.push(socket);
-    //console.log('User connected : %s online', connections.length);
-
-    socket.on('disconnect', function (data) {
-        //connections.splice(connections.indexOF(socket), 1);
-        //console.log('User disconnected : %s online', connections.length);
-    });
+io.sockets.on('connection', function (socket) { 
 
     socket.on('send message', function (data) {
         io.sockets.emit('new message', { msg: data });
     });
 
-});
+    socket.on('user', function (data) {
+        io.sockets.emit('user status', { msg: data });
+    });
 
+    socket.on('disconnect', function (){
+        io.sockets.emit('user exit','对方用户已下线');
+    });
+
+});
