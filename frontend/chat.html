@@ -22,8 +22,12 @@
       }
 
       .alert {
-        padding: 0.5rem 1rem;
-        margin-bottom: 0.4rem;
+        padding: 0.2rem 0.8rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .close {
+        line-height: 0;
       }
 
       #chatmessage {
@@ -32,34 +36,18 @@
       }
     </style>
   </head>
-  <body class="bg-light">
+<body class="bg-light">
 
 <div class="container">
   <div class="py-3 text-center">  
     <h3>Secret Chat</h3>    
   </div>
 
-  <!--
+  <!--user information-->
   <div class="row">
-    <div class="col-md-3 order-md-2 mb-0">
-      <h6 class="d-flex justify-content-between align-items-center mb-2">
-        在线用户
-      </h6>
-      <ul id="users" class="list-group">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <small class="text-muted">No User</small>       
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-             <small class="text-muted">No User</small>    
-        </li>
-      </ul>
-    </div>
-  Online User Status-->
-
-  <!--Channel info-->
-  <div class="col-md-9 order-md-1">    
+     <div class="col-md-12">    
       <div class="row">
-        <div class="col-md-4 mb-3">      <p class="mb-2">输入昵称</p> 
+        <div class="col-md-6 mb-3">      <p class="mb-2">输入昵称</p> 
           <input id="username"  type="text" class="form-control" placeholder="Your Name" value="" >
         </div>
         <!--
@@ -67,29 +55,23 @@
           <input id="channel" type="text" class="form-control"  placeholder="Channel No." value="" >
         </div>
         -->
-        <div class="col-md-4 mb-3"><p class="mb-2">约定好的密码</p> 
+        <div class="col-md-6 mb-3"><p class="mb-2">约定好的密码</p> 
           <input id="password" type="text" class="form-control" placeholder="Password" value="" >
         </div>    
       </div> 
-  </div>
-</div>
+  </div><!--Row END-->
+  </div>  <!--Row END-->
 
-<!--message Area-->
-<div class="container mt-1">
-    <h5 class="mb-3">聊天信息 : </h5>
+  <!--message Area-->
+  <h5 class="mb-3">聊天信息 : </h5>
   <div id="chatmessage" class="border border-success p-3 mb-3" style="word-break:break-all; word-wrap:break-all;" >
-  <div class="alert alert-success" role="alert">
-    如果收到新信息，自动显示在这里...
-  </div>
-  </div>
+  </div>  <!--ID chatmessage END-->
 
-
-<!--Input Area-->
+  <!--Input Area-->
   <div class="input-group mb-3">
     <textarea id="message" class="border border-success form-control" placeholder="输入消息" aria-label="With textarea"></textarea>
     <button id='sendbutton' type="button" class="btn btn-success">发送消息</button>
   </div>
-</div>
 
   <footer class="text-center">  
     <form action="upload" method="POST" enctype="application/x-www-form-urlencoded">
@@ -97,35 +79,32 @@
       <button type="button" class="btn btn-secondary" onclick="upload()" >开始上传</button>
     </form>
   </footer>
-
+</div><!--Container END-->
 
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/socket.io.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/crypto-js.js"></script>
-<script src="js/function.js"></script>
 <script>
-  function upload(e){
-    var formData = new FormData();
-    for (var i = 0; i < e.files.length; i++) {
-         //注意这里必须用 【"file"+i】，如果直接【"file"】，会认为同一个文件并且覆盖，导致上传了多个一样的文件
+function upload(e){
+  var formData = new FormData();
+  for (var i = 0; i < e.files.length; i++) {
+        //注意这里必须用 【"file"+i】，如果直接【"file"】，会认为同一个文件并且覆盖，导致上传了多个一样的文件
 　　    formData.append("file"+i, e.files[i]);
-    }
-    $.ajax({
-     　　type: "POST",
-    　   url: "/upload",
-    　　　processData: false,
-     　　 contentType: false,
-     　　 data: formData,
-     　　 cache: false,
-     　　 success: function (data) {
-       //
-     } 
-     });
-  };
+  }
+  $.ajax({
+    　　type: "POST",
+  　   url: "/upload",
+  　　　processData: false,
+    　　 contentType: false,
+    　　 data: formData,
+    　　 cache: false,
+    　　 success: function (data) {
+      //
+    } 
+    });
+};
 
-
-//msg = $("#message").val() //原始聊天内容
 function getaes(a) { //加密
     key = CryptoJS.SHA256($("#password").val()).toString().substring(1, 17)
     iv = CryptoJS.SHA256($("#password").val()).toString().substring(21, 37)
@@ -137,8 +116,6 @@ function getaes(a) { //加密
         });
     return encrypted.toString();
 }
-
-//a = getaes() //得到加密后的字符串
 
 function getdaes(a) {//解密
     key = CryptoJS.SHA256($("#password").val()).toString().substring(1, 17)
@@ -152,8 +129,6 @@ function getdaes(a) {//解密
     return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
-//b = getdaes(a) //得到解密后的字符串
-
 $(function () {
     const socket = io.connect();
     const $sendbutton = $('#sendbutton');
@@ -161,31 +136,52 @@ $(function () {
     const $chatmessage = $('#chatmessage');
 
     $sendbutton.click(function (e) {
-        console.log(key,iv);
-        //e.preventDeafult();
-        //socket.emit('send message', $message.val());
-        console.log('明文 '+$message.val());
-        console.log('加密过后密文'+getaes());
         if ($message.val()!=='') {
         socket.emit('send message', getaes($("#username").val()+" : "+$message.val()));
         $message.val(''); //发送完毕后清空输入框
-        console.log('发送完毕-----------------');
         };
     });
 
+    //用户连接成功后，发送用户上线给服务器
+    socket.on('connect',function(){
+      socket.emit('user', '新用户已上线，但未设置用户名');      
+    });
+
+    //用户输入昵称后，把这个用户名发送给后台
+    $("#username").change(function(){
+      socket.emit('user', '用户修改昵称为 ：'+$("#username").val()); 
+    });
+
+    //转发服务器信息：用户上线/用户改名
+    socket.on('user status',function(data){
+      $chatmessage.append('<div class="alert alert-success alert-dismissible fade show">' + data.msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      $('#chatmessage').scrollTop(99999999);
+    });
+
+    //从服务器端，监控用户退出
+    socket.on('user exit',function(data){
+      $chatmessage.append('<div class="alert alert-danger alert-dismissible fade show">' + data+ '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      $('#chatmessage').scrollTop(99999999);
+    });   
+
+    //转发新消息
     socket.on('new message', function (data) {
-        //$chatmessage.append('<div class="alert alert-info" role="alert">' + data.msg + '</div>');
-        console.log('传输来的密文'+data.msg);
-        console.log('传输来的data'+data);
-        console.log('解密后的明文'+getdaes(data.msg));
-        $chatmessage.append('<div class="alert alert-info" role="alert">' + getdaes(data.msg) + '</div>');
+        $chatmessage.append('<div class="alert alert-info alert-dismissible fade show">' + getdaes(data.msg) + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         $('#chatmessage').scrollTop(99999999);
     });
+
 });
 
 </script>
+<script>
+//等待socket回调数据后，删除自己上线的提示信息，并提示对方上线
+$(function(){
+	setTimeout(function () { 
+    $('#chatmessage').children().remove();//删除自己登录的提示信息
+    $('#chatmessage').append('<div class="alert alert-danger alert-dismissible fade show">请联系对方上线，之后消息将会出现在这里...<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+	}, 3000); // 延时3秒
+})
 
-
-
+</script>
 </body>
 </html>
