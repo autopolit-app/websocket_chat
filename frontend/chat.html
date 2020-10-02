@@ -1,187 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Secret Chat</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Secret Chat</title>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <style>
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+    .alert {
+      padding: 0.2rem 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+    .close {
+      line-height: 0;
+    }
+    #chatmessage {
+      height: 450px;
+      overflow: auto;
+    }
+  </style>
+</head>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .alert {
-        padding: 0.2rem 0.8rem;
-        margin-bottom: 0.2rem;
-      }
-
-      .close {
-        line-height: 0;
-      }
-
-      #chatmessage {
-        height:500px;
-        overflow:auto;
-      }
-    </style>
-  </head>
 <body class="bg-light">
+  <div class="container">
+    <div class="py-3 text-center">
+      <img src="image/v14.ico" alt="Secret Chat" style="width:45px;height:45px;">
+      <h6>Secret Chat</h6>
+    </div>
 
-<div class="container">
-  <div class="py-3 text-center">  
-    <h3>Secret Chat</h3>    
-  </div>
-
-  <!--user information-->
-  <div class="row">
-     <div class="col-md-12">    
-      <div class="row">
-        <div class="col-md-6 mb-3">      <p class="mb-2">输入昵称</p> 
-          <input id="username"  type="text" class="form-control" placeholder="Your Name" value="" >
+    <!--UserName and Password-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6 input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="text-success input-group-text" id="basic-addon1">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                </svg>
+              </span>
+            </div>
+            <input id="username" type="text" class="form-control" placeholder="输入昵称" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+      <div class="col-md-6 input-group mb-2">
+        <div class="input-group-prepend">
+          <span class="text-success input-group-text" id="basic-addon1">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shield-shaded" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M5.443 1.991a60.17 60.17 0 0 0-2.725.802.454.454 0 0 0-.315.366C1.87 7.056 3.1 9.9 4.567 11.773c.736.94 1.533 1.636 2.197 2.093.333.228.626.394.857.5.116.053.21.089.282.11A.73.73 0 0 0 8 14.5c.007-.001.038-.005.097-.023.072-.022.166-.058.282-.111.23-.106.525-.272.857-.5a10.197 10.197 0 0 0 2.197-2.093C12.9 9.9 14.13 7.056 13.597 3.159a.454.454 0 0 0-.315-.366c-.626-.2-1.682-.526-2.725-.802C9.491 1.71 8.51 1.5 8 1.5c-.51 0-1.49.21-2.557.491zm-.256-.966C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 0 1 2.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 0 1-2.418 2.3 6.942 6.942 0 0 1-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 0 1-1.007-.586 11.192 11.192 0 0 1-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 0 1 2.415 1.84a61.11 61.11 0 0 1 2.772-.815z" />
+              <path d="M8 2.25c.909 0 3.188.685 4.254 1.022a.94.94 0 0 1 .656.773c.814 6.424-4.13 9.452-4.91 9.452V2.25z" />
+            </svg>
+          </span>
         </div>
-        <!--
-        <div class="col-md-4 mb-3">      <h6 class="mb-2">约定好的频道</h6> 
-          <input id="channel" type="text" class="form-control"  placeholder="Channel No." value="" >
-        </div>
-        -->
-        <div class="col-md-6 mb-3"><p class="mb-2">约定好的密码</p> 
-          <input id="password" type="text" class="form-control" placeholder="Password" value="" >
-        </div>    
-      </div> 
-  </div><!--Row END-->
-  </div>  <!--Row END-->
-
-  <!--message Area-->
-  <h5 class="mb-3">聊天信息 : </h5>
-  <div id="chatmessage" class="border border-success p-3 mb-3" style="word-break:break-all; word-wrap:break-all;" >
-  </div>  <!--ID chatmessage END-->
-
-  <!--Input Area-->
-  <div class="input-group mb-3">
-    <textarea id="message" class="border border-success form-control" placeholder="输入消息" aria-label="With textarea"></textarea>
-    <button id='sendbutton' type="button" class="btn btn-success">发送消息</button>
+        <input id="password" type="password" class="form-control" placeholder="输入约定的密码" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+    </div>
+    </div>
+      <!--Row END-->
   </div>
+    <!--Row END-->
 
-  <footer class="text-center">  
-    <form action="upload" method="POST" enctype="application/x-www-form-urlencoded">
-      <input name="fileupload" multiple="multiple" type="file" value="" />
-      <button type="button" class="btn btn-secondary" onclick="upload()" >开始上传</button>
-    </form>
-  </footer>
-</div><!--Container END-->
+    <!--Message Area-->
+    <span id="userlist"></span> 
+    <div id="chatmessage" class="border border-success p-3 mb-3" style="word-break:break-all; word-wrap:break-all;">
+    </div><!--ID chatmessage END-->
 
-<script src="js/jquery-3.5.1.js"></script>
-<script src="js/socket.io.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/crypto-js.js"></script>
-<script>
-function upload(e){
-  var formData = new FormData();
-  for (var i = 0; i < e.files.length; i++) {
+    <!--Input Area-->
+    <div class="input-group mb-3">
+      <textarea id="message" class="border border-success form-control" placeholder="输入消息"
+        aria-label="With textarea"></textarea>
+      <button id='sendbutton' type="button" class="btn btn-success">发送消息</button>
+    </div>
+
+  </div><!--Container END-->
+  <script src="js/jquery-3.5.1.js"></script>
+  <script src="js/socket.io.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/crypto-js.js"></script>
+  <script>
+    function upload(e) {
+      var formData = new FormData();
+      for (var i = 0; i < e.files.length; i++) {
         //注意这里必须用 【"file"+i】，如果直接【"file"】，会认为同一个文件并且覆盖，导致上传了多个一样的文件
-　　    formData.append("file"+i, e.files[i]);
-  }
-  $.ajax({
-    　　type: "POST",
-  　   url: "/upload",
-  　　　processData: false,
-    　　 contentType: false,
-    　　 data: formData,
-    　　 cache: false,
-    　　 success: function (data) {
-      //
-    } 
-    });
-};
+        formData.append("file" + i, e.files[i]);
+      }
+      $.ajax({
+        type: "POST",
+        url: "/upload",
+        processData: false,
+        contentType: false,
+        data: formData,
+        cache: false,
+        success: function (data) {
+          //
+        }
+      });
+    };
 
-function getaes(a) { //加密
-    key = CryptoJS.SHA256($("#password").val()).toString().substring(1, 17)
-    iv = CryptoJS.SHA256($("#password").val()).toString().substring(21, 37)
-    var encrypted = CryptoJS.AES.encrypt(a, key,
+    function getaes(a) { //加密
+      key = CryptoJS.SHA256($("#password").val()).toString().substring(1, 17)
+      iv = CryptoJS.SHA256($("#password").val()).toString().substring(21, 37)
+      var encrypted = CryptoJS.AES.encrypt(a, key,
         {
-            iv: iv,
-            mode: CryptoJS.mode.OFB,
-            padding: CryptoJS.pad.Pkcs7
+          iv: iv,
+          mode: CryptoJS.mode.OFB,
+          padding: CryptoJS.pad.Pkcs7
         });
-    return encrypted.toString();
-}
+      return encrypted.toString();
+    }
 
-function getdaes(a) {//解密
-    key = CryptoJS.SHA256($("#password").val()).toString().substring(1, 17)
-    iv = CryptoJS.SHA256($("#password").val()).toString().substring(21, 37)
-    var decrypted = CryptoJS.AES.decrypt(a, key,
+    function getdaes(a) {//解密
+      key = CryptoJS.SHA256($("#password").val()).toString().substring(1, 17)
+      iv = CryptoJS.SHA256($("#password").val()).toString().substring(21, 37)
+      var decrypted = CryptoJS.AES.decrypt(a, key,
         {
-            iv: iv,
-            mode: CryptoJS.mode.OFB,
-            padding: CryptoJS.pad.Pkcs7
+          iv: iv,
+          mode: CryptoJS.mode.OFB,
+          padding: CryptoJS.pad.Pkcs7
         });
-    return decrypted.toString(CryptoJS.enc.Utf8);
-}
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    }
 
-$(function () {
-    const socket = io.connect();
-    const $sendbutton = $('#sendbutton');
-    const $message = $('#message');
-    const $chatmessage = $('#chatmessage');
+    $(function () {
+      const socket = io.connect();
+      const $sendbutton = $('#sendbutton');
+      const $message = $('#message');
+      const $chatmessage = $('#chatmessage');
+      const $userlist = $('#userlist');
 
-    $sendbutton.click(function (e) {
-        if ($message.val()!=='') {
-        socket.emit('send message', getaes($("#username").val()+" : "+$message.val()));
-        $message.val(''); //发送完毕后清空输入框
+      $sendbutton.click(function (e) {
+        if ($message.val() !== '') {
+          socket.emit('send message', getaes($("#username").val() + " : " + $message.val()));
+          $message.val(''); //发送完毕后清空输入框
         };
-    });
+      });
 
-    //用户连接成功后，发送用户上线给服务器
-    socket.on('connect',function(){
-      socket.emit('user', '新用户已上线，但未设置用户名');      
-    });
+      //用户连接成功后，发送用户上线给服务器
+      socket.on('connect', function () {
+        socket.emit('user', '新用户已上线，但未设置用户名');
+      });
 
-    //用户输入昵称后，把这个用户名发送给后台
-    $("#username").change(function(){
-      socket.emit('user', '用户修改昵称为 ：'+$("#username").val()); 
-    });
+      //用户输入昵称后，把这个用户名发送给后台
+      $("#username").change(function () {
+        socket.emit('user', '用户修改昵称为 ：' + $("#username").val());
+      });
 
-    //转发服务器信息：用户上线/用户改名
-    socket.on('user status',function(data){
-      $chatmessage.append('<div class="alert alert-success alert-dismissible fade show">' + data.msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-      $('#chatmessage').scrollTop(99999999);
-    });
+      //转发服务器信息：用户上线/用户改名
+      socket.on('user status', function (data) {
+        $chatmessage.append('<div class="alert alert-success alert-dismissible fade show">' + data.msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $('#chatmessage').scrollTop(99999999);
+      });
 
-    //从服务器端，监控用户退出
-    socket.on('user exit',function(data){
-      $chatmessage.append('<div class="alert alert-danger alert-dismissible fade show">' + data+ '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-      $('#chatmessage').scrollTop(99999999);
-    });   
+      //从服务器端，监控用户退出
+      socket.on('user exit', function (data) {
+        $chatmessage.append('<div class="alert alert-danger alert-dismissible fade show">' + data + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $('#chatmessage').scrollTop(99999999);
+      });
 
-    //转发新消息
-    socket.on('new message', function (data) {
+      //转发新消息
+      socket.on('new message', function (data) {
         $chatmessage.append('<div class="alert alert-info alert-dismissible fade show">' + getdaes(data.msg) + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         $('#chatmessage').scrollTop(99999999);
+      });
+
+      //刷新在线用户数量
+      socket.on('user list', function (data) {
+        $userlist.children().remove();//删除现存的用户列表
+        $userlist.append('<h6 class="text-right text-muted">当前 ' + data + ' 个用户在线</h6>');//写入新的用户数量
+      });
+
     });
-
-});
-
-</script>
-<script>
-//等待socket回调数据后，删除自己上线的提示信息，并提示对方上线
-$(function(){
-	setTimeout(function () { 
-    $('#chatmessage').children().remove();//删除自己登录的提示信息
-    $('#chatmessage').append('<div class="alert alert-danger alert-dismissible fade show">请联系对方上线，之后消息将会出现在这里...<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-	}, 3000); // 延时3秒
-})
-
-</script>
+  </script>
+  <script>
+    //等待socket回调数据后，删除自己上线的提示信息，并提示对方上线
+    $(function () {
+      setTimeout(function () {
+        $('#chatmessage').children().remove();//清空自己登录的提示信息
+        $('#chatmessage').append('<div class="alert alert-danger alert-dismissible fade show">请联系对方上线，聊天将自动显示<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      }, 1000); // 延时1秒
+    });
+  </script>
 </body>
 </html>
